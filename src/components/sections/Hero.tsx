@@ -18,8 +18,6 @@ export function Hero() {
         <div className="flex-1 bg-white" />
       </div>
 
-      <GridLines />
-
       {/* Background Technicals */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div
@@ -60,10 +58,6 @@ export function Hero() {
             threshold={80}
             className="w-full h-full"
           />
-          <PlusIcon className="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 opacity-20" />
-          <PlusIcon className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 opacity-20" />
-          <PlusIcon className="absolute bottom-0 left-0 -translate-x-1/2 translate-y-1/2 opacity-20" />
-          <PlusIcon className="absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2 opacity-20" />
         </motion.div>
       </div>
 
@@ -74,7 +68,7 @@ export function Hero() {
         transition={{ duration: 0.8, delay: 1 }}
         className="relative z-20 self-end mt-auto mb-12 flex flex-col items-end text-right"
       >
-        <p className="text-[10px] md:text-xs font-mono text-white uppercase tracking-[0.4em] mb-12 max-w-sm leading-relaxed">
+        <p className="text-[10px] md:text-xs font-mono text-black uppercase tracking-[0.4em] mb-12 max-w-sm leading-relaxed">
           Focused on Native Performance & High Capacity Infrastructure. Building
           the next generation of mobile experiences.
         </p>
@@ -86,9 +80,9 @@ export function Hero() {
                 .getElementById("projects")
                 ?.scrollIntoView({ behavior: "smooth" })
             }
-            className="group relative px-10 py-5 bg-white text-black font-bold uppercase tracking-widest text-[10px] hover:bg-neutral-200 transition-all overflow-hidden w-full sm:w-auto"
+            className="group relative px-10 py-5 bg-black text-white font-bold uppercase tracking-widest text-[10px] hover:bg-neutral-800 transition-all overflow-hidden w-full sm:w-auto"
           >
-            <div className="absolute inset-0 bg-neutral-200 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+            <div className="absolute inset-0 bg-neutral-800 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
             <span className="relative z-10 flex items-center gap-3">
               Projects{" "}
               <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
@@ -100,19 +94,12 @@ export function Hero() {
                 .getElementById("skills")
                 ?.scrollIntoView({ behavior: "smooth" })
             }
-            className="group px-8 py-5 border border-white/10 hover:border-white/30 text-[10px] text-neutral-500 font-mono uppercase tracking-[0.4em] transition-all bg-white/[0.02] w-full sm:w-auto"
+            className="group px-8 py-5 border border-black hover:border-black/30 text-[10px] text-black font-mono uppercase tracking-[0.4em] transition-all w-full sm:w-auto"
           >
             Skills
           </button>
         </div>
       </motion.div>
-
-      {/* Footer-like indicators */}
-      <div className="absolute bottom-12 left-12 hidden md:block">
-        <span className="text-[9px] font-mono text-neutral-700 uppercase tracking-[0.5em]">
-          Scroll to explore // 2026.REL
-        </span>
-      </div>
     </div>
   );
 }

@@ -132,10 +132,11 @@ export const ExactLineArt: React.FC<Props> = ({
           // Color Inversion based on absolute screen X
           const absoluteX = parent.getBoundingClientRect().left + p.x;
           const isOnRightSide = absoluteX > window.innerWidth / 2;
+          ctx.globalAlpha = 1;
           ctx.fillStyle = isOnRightSide ? "#000000" : "#FFFFFF";
 
-          // Brighter points (slightly larger + shadow for glow feel)
-          ctx.fillRect(p.x, p.y, 1.5, 1.5);
+          // Sharp integer points to avoid sub-pixel graying
+          ctx.fillRect(Math.round(p.x), Math.round(p.y), 2, 2);
         }
 
         animationFrame = requestAnimationFrame(animate);
