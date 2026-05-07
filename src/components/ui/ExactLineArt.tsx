@@ -10,13 +10,17 @@ interface Props {
 interface Point {
   x: number;
   y: number;
-  ox: number; 
-  oy: number; 
+  ox: number;
+  oy: number;
   vx: number;
   vy: number;
 }
 
-export const ExactLineArt: React.FC<Props> = ({ src, className, threshold = 20 }) => {
+export const ExactLineArt: React.FC<Props> = ({
+  src,
+  className,
+  threshold = 20,
+}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const pointsRef = useRef<Point[]>([]);
@@ -60,22 +64,32 @@ export const ExactLineArt: React.FC<Props> = ({ src, className, threshold = 20 }
 
       for (let y = 1; y < height - 1; y += step) {
         for (let x = 1; x < width - 1; x += step) {
-          const gx = 
-            -1 * getGrayscale(x-1, y-1) + 1 * getGrayscale(x+1, y-1) +
-            -2 * getGrayscale(x-1, y)   + 2 * getGrayscale(x+1, y)   +
-            -1 * getGrayscale(x-1, y+1) + 1 * getGrayscale(x+1, y+1);
+          const gx =
+            -1 * getGrayscale(x - 1, y - 1) +
+            1 * getGrayscale(x + 1, y - 1) +
+            -2 * getGrayscale(x - 1, y) +
+            2 * getGrayscale(x + 1, y) +
+            -1 * getGrayscale(x - 1, y + 1) +
+            1 * getGrayscale(x + 1, y + 1);
 
-          const gy = 
-            -1 * getGrayscale(x-1, y-1) + -2 * getGrayscale(x, y-1) + -1 * getGrayscale(x+1, y-1) +
-             1 * getGrayscale(x-1, y+1) +  2 * getGrayscale(x, y+1) +  1 * getGrayscale(x+1, y+1);
+          const gy =
+            -1 * getGrayscale(x - 1, y - 1) +
+            -2 * getGrayscale(x, y - 1) +
+            -1 * getGrayscale(x + 1, y - 1) +
+            1 * getGrayscale(x - 1, y + 1) +
+            2 * getGrayscale(x, y + 1) +
+            1 * getGrayscale(x + 1, y + 1);
 
           const magnitude = Math.sqrt(gx * gx + gy * gy);
-          
+
           if (magnitude > threshold) {
             points.push({
-              x: x, y: y,
-              ox: x, oy: y,
-              vx: 0, vy: 0
+              x: x,
+              y: y,
+              ox: x,
+              oy: y,
+              vx: 0,
+              vy: 0,
             });
           }
         }
@@ -85,24 +99,21 @@ export const ExactLineArt: React.FC<Props> = ({ src, className, threshold = 20 }
 
       let animationFrame: number;
       const animate = () => {
-        // Clear with fade for trails
-        ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
-        ctx.fillRect(0, 0, width, height);
-        
-        ctx.fillStyle = "#ffffff";
+        ctx.clearRect(0, 0, width, height);
+
         const mouse = mouseRef.current;
 
         for (let i = 0; i < pointsRef.current.length; i++) {
           const p = pointsRef.current[i];
-          
+
           const dx = mouse.x - p.x;
           const dy = mouse.y - p.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          
+
           if (dist < 120) {
             const force = (120 - dist) / 120;
             const angle = Math.atan2(dy, dx);
-            
+
             // Smoother repulsion + slight swirl
             p.vx -= Math.cos(angle + 0.2) * force * 3;
             p.vy -= Math.sin(angle + 0.2) * force * 3;
@@ -111,12 +122,17 @@ export const ExactLineArt: React.FC<Props> = ({ src, className, threshold = 20 }
           // Return to home with damping
           p.vx += (p.ox - p.x) * 0.08;
           p.vy += (p.oy - p.y) * 0.08;
-          
+
           p.vx *= 0.92;
           p.vy *= 0.92;
-          
+
           p.x += p.vx;
           p.y += p.vy;
+
+          // Color Inversion based on absolute screen X
+          const absoluteX = parent.getBoundingClientRect().left + p.x;
+          const isOnRightSide = absoluteX > window.innerWidth / 2;
+          ctx.fillStyle = isOnRightSide ? "#000000" : "#FFFFFF";
 
           // Brighter points (slightly larger + shadow for glow feel)
           ctx.fillRect(p.x, p.y, 1.5, 1.5);
@@ -136,7 +152,7 @@ export const ExactLineArt: React.FC<Props> = ({ src, className, threshold = 20 }
       mouseRef.current = {
         x: e.clientX - rect.left,
         y: e.clientY - rect.top,
-        active: true
+        active: true,
       };
     }
   };

@@ -11,7 +11,13 @@ export function Hero() {
   const scale = useTransform(scrollY, [0, 400], [1, 0.9]);
 
   return (
-    <div className="relative min-h-screen w-full flex flex-col overflow-hidden bg-black border-b border-white/10 p-6 md:p-12">
+    <div className="relative min-h-screen w-full flex flex-col overflow-hidden border-b border-white/10 p-6 md:p-12">
+      {/* BACKGROUND SPLIT */}
+      <div className="absolute inset-0 flex pointer-events-none z-0">
+        <div className="flex-1 bg-black" />
+        <div className="flex-1 bg-white" />
+      </div>
+
       <GridLines />
 
       {/* Background Technicals */}
