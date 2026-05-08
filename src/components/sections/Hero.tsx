@@ -74,7 +74,7 @@ export function Hero() {
           <FaLinkedin className="w-5 h-5" />
         </a>
         <a
-          href="https://www.npmjs.com/~elnatansamuel"
+          href="https://www.npmjs.com/~elnatan"
           className="text-black hover:scale-110 transition-transform p-2"
           aria-label="NPM"
         >
