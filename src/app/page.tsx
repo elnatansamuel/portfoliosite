@@ -2,7 +2,10 @@
 import React, { useRef } from "react";
 import { Hero } from "@/components/sections/Hero";
 import { Projects } from "@/components/sections/Projects";
+import { About } from "@/components/sections/About";
+import { Experience } from "@/components/sections/Experience";
 import { Skills } from "@/components/sections/Skills";
+import { Footer } from "@/components/sections/Footer";
 import { Preloader } from "@/components/ui/Preloader";
 import { GridLines, PlusIcon } from "@/components/ui/GridLines";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
@@ -21,23 +24,23 @@ function ExperienceCard({ exp, index }: { exp: any; index: number }) {
     <motion.div
       ref={ref}
       style={{ y, opacity }}
-      className="relative pl-12 border-l border-white/10"
+      className="relative pl-12 border-l border-black/10"
     >
-      <div className="absolute left-[-4px] top-6 w-2 h-2 bg-white" />
-      <span className="text-[10px] font-mono text-white mb-3 block uppercase tracking-[0.3em]">
+      <div className="absolute left-[-4px] top-6 w-2 h-2 bg-black" />
+      <span className="text-[10px] font-mono text-neutral-500 mb-3 block uppercase tracking-[0.3em]">
         {exp.period}
       </span>
-      <h3 className="text-4xl font-bold mb-2 tracking-tighter uppercase">
+      <h3 className="text-4xl font-bold mb-2 tracking-tighter uppercase text-black">
         {exp.role}
       </h3>
-      <p className="text-white mb-8 font-mono uppercase tracking-[0.2em] text-[12px]">
+      <p className="text-black mb-8 font-mono uppercase tracking-[0.2em] text-[12px]">
         {exp.company}
       </p>
       <ul className="space-y-4 max-w-md">
         {exp.points.map((point: string, i: number) => (
           <li key={i} className="flex gap-4 group">
-            <div className="w-[2px] h-[2px] bg-white/60 rounded-full mt-2 shrink-0 group-hover:bg-white transition-colors" />
-            <span className="text-white leading-relaxed text-[11px] uppercase tracking-tight group-hover:text-neutral-300 transition-colors">
+            <div className="w-[2px] h-[2px] bg-black/60 rounded-full mt-2 shrink-0 group-hover:bg-black transition-colors" />
+            <span className="text-black leading-relaxed text-[11px] uppercase tracking-tight group-hover:text-neutral-500 transition-colors">
               {point}
             </span>
           </li>
@@ -68,18 +71,42 @@ export default function Home() {
       <div className="relative">
         <Hero />
 
-        <Projects />
+        {/* Projects (White) */}
+        <div className="bg-white relative z-30">
+          <motion.div
+            style={{
+              y: useTransform(
+                useScroll().scrollYProgress,
+                [0.1, 0.3],
+                [0, -50],
+              ),
+            }}
+          >
+            <Projects />
+          </motion.div>
+        </div>
 
-        {/* Experience Section with Parallax */}
-        <section
-          id="experience"
-          className="py-10 px-6 relative z-30 bg-black border-t border-white/5"
+        {/* About (Black) with Parallax Transition */}
+        <motion.div
+          style={{
+            y: useTransform(useScroll().scrollYProgress, [0.3, 0.5], [100, 0]),
+            zIndex: 31,
+          }}
+          className="relative bg-black"
         >
-          <div className="max-w-7xl mx-auto relative px-10 border-x border-white/5">
-            <PlusIcon className="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2" />
-            <PlusIcon className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2" />
-            <PlusIcon className="absolute bottom-0 left-0 -translate-x-1/2 translate-y-1/2" />
-            <PlusIcon className="absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2" />
+          <About />
+        </motion.div>
+
+        {/* Experience Section (White) with Parallax Transition */}
+        <motion.section
+          id="experience"
+          style={{
+            y: useTransform(useScroll().scrollYProgress, [0.5, 0.7], [100, 0]),
+            zIndex: 32,
+          }}
+          className="py-10 px-6 relative bg-white border-t border-black/5"
+        >
+          <div className="max-w-7xl mx-auto relative px-10 ">
             <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-24 py-20 items-start">
               {/* Sticky Header Column */}
               <div className="sticky top-40 h-fit">
@@ -89,13 +116,13 @@ export default function Home() {
                   transition={{ duration: 0.8 }}
                   viewport={{ once: true }}
                 >
-                  <span className="text-xs font-mono text-neutral-600 uppercase tracking-[0.4em] block mb-3">
+                  <span className="text-xs font-mono text-neutral-400 uppercase tracking-[0.4em] block mb-3">
                     Career .LOG
                   </span>
-                  <h2 className="text-4xl md:text-5xl font-black -tracking-normal uppercase leading-[1] mb-2">
+                  <h2 className="text-4xl md:text-5xl font-black -tracking-normal uppercase leading-[1] mb-2 text-black">
                     Experience <br /> History
                   </h2>
-                  <div className="w-24 h-1 bg-white mb-8" />
+                  <div className="w-24 h-1 bg-black mb-8" />
                 </motion.div>
               </div>
 
@@ -148,44 +175,64 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </section>
+        </motion.section>
 
-        <Skills />
+        {/* Combined Dark Bottom Section (Skills & Footer) */}
+        <motion.div
+          style={{
+            y: useTransform(useScroll().scrollYProgress, [0.7, 0.9], [100, 0]),
+            zIndex: 33,
+          }}
+          className="bg-black relative"
+        >
+          <motion.div
+            style={{
+              y: useTransform(
+                useScroll().scrollYProgress,
+                [0.7, 0.9],
+                [50, -50],
+              ),
+            }}
+          >
+            <Skills />
+          </motion.div>
 
-        <footer className=" px-6 text-center border-t border-white/5 bg-black relative overflow-hidden">
-          <div className="absolute inset-0 grid-background opacity-20" />
+          <footer
+            id="footer"
+            className="px-6 text-center border-t border-white/10 bg-black relative overflow-hidden"
+          >
+            <div className="absolute inset-0 grid-background opacity-5" />
 
-          <div className="max-w-7xl mx-auto border-x border-white/10 p-20 flex flex-col items-center gap-12 bg-black/80 backdrop-blur-md relative z-10">
-            <PlusIcon className="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2" />
-            <PlusIcon className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2" />
-            <div className="flex items-center gap-3">
-              <span className="font-bold tracking-tighter text-4xl font-mono">
-                ES.DEV
-              </span>
+            <div className="max-w-7xl mx-auto p-20 flex flex-col items-center gap-12 bg-black relative z-10">
+              <div className="flex items-center gap-3">
+                <span className="font-bold tracking-tighter text-4xl  text-white uppercase">
+                  ELNATAN SAMUEL
+                </span>
+              </div>
+
+              <div className="flex gap-12">
+                <a
+                  href="mailto:elnatansamuel25@gmail.com"
+                  className="nav-link font-bold font-mono hover:tracking-widest transition-all !text-white border-white/20"
+                >
+                  Email
+                </a>
+                <a
+                  href="https://github.com/ElnatanSamuel"
+                  className="nav-link font-bold font-mono hover:tracking-widest transition-all !text-white border-white/20"
+                >
+                  GitHub
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/elnatansamuel999/"
+                  className="nav-link font-bold font-mono hover:tracking-widest transition-all !text-white border-white/20"
+                >
+                  LinkedIn
+                </a>
+              </div>
             </div>
-
-            <div className="flex gap-12">
-              <a
-                href="mailto:[elnatansamuel25@gmail.com]"
-                className="nav-link font-bold hover:tracking-widest transition-all"
-              >
-                Email
-              </a>
-              <a
-                href="https://github.com/ElnatanSamuel"
-                className="nav-link font-bold hover:tracking-widest transition-all"
-              >
-                GitHub
-              </a>
-              <a
-                href="https://www.linkedin.com/in/elnatansamuel999/"
-                className="nav-link font-bold hover:tracking-widest transition-all"
-              >
-                LinkedIn
-              </a>
-            </div>
-          </div>
-        </footer>
+          </footer>
+        </motion.div>
       </div>
     </main>
   );

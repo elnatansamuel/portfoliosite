@@ -57,13 +57,8 @@ const projects = [
 
 export function Projects() {
   return (
-    <section id="projects" className="py-40 px-6 relative z-30 bg-black">
-      <div className="max-w-7xl mx-auto relative border-x border-white/5 px-10">
-        <PlusIcon className="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2" />
-        <PlusIcon className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2" />
-        <PlusIcon className="absolute bottom-0 left-0 -translate-x-1/2 translate-y-1/2" />
-        <PlusIcon className="absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2" />
-
+    <section id="projects" className="py-40 px-6 relative z-30 bg-white">
+      <div className="max-w-7xl mx-auto relative  px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -72,17 +67,17 @@ export function Projects() {
           className="flex flex-col md:flex-row justify-between items-end mb-24 gap-12"
         >
           <div className="md:w-1/2">
-            <span className="text-xs font-mono text-neutral-600 uppercase tracking-[0.4em] block mb-3">
+            <span className="text-xs font-mono text-neutral-400 uppercase tracking-[0.4em] block mb-3">
               Selected Works
             </span>
-            <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase mb-4">
+            <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase mb-4 text-black">
               Featured Projects
             </h2>
-            <div className="w-20 h-1 bg-white mb-6" />
+            <div className="w-20 h-1 bg-black mb-6" />
           </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/10 border border-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-black/5 border border-black/5">
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
@@ -90,25 +85,25 @@ export function Projects() {
               whileInView={{ opacity: 1 }}
               transition={{ delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-black p-0 group relative overflow-hidden h-full flex flex-col"
+              className="bg-white p-0 group relative overflow-hidden h-full flex flex-col border border-black/5"
             >
               {/* Project Image Container */}
-              <div className="aspect-[16/10] bg-neutral-900 relative overflow-hidden flex-shrink-0">
+              <div className="aspect-[16/10] bg-neutral-100 relative overflow-hidden flex-shrink-0">
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 scale-105 group-hover:scale-100"
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
                 />
               </div>
 
-              <div className="p-10 flex flex-col flex-grow border-t border-white/5">
+              <div className="p-10 flex flex-col flex-grow border-t border-black/5">
                 <div className="mb-2">
-                  <h3 className="text-3xl font-bold tracking-tight uppercase group-hover:text-white transition-colors">
+                  <h3 className="text-3xl font-bold tracking-tight uppercase text-black group-hover:text-black transition-colors">
                     {project.title}
                   </h3>
                 </div>
 
-                <p className="text-neutral-400 mb-4 leading-relaxed text-sm max-w-sm uppercase tracking-tight">
+                <p className="text-neutral-500 mb-4 leading-relaxed text-sm max-w-sm uppercase tracking-tight">
                   {project.desc}
                 </p>
 
@@ -117,7 +112,7 @@ export function Projects() {
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="text-[9px] font-mono px-3 py-1 border border-white/70 text-white uppercase tracking-widest"
+                        className="text-[9px] font-mono px-3 py-1 border border-black/20 text-black uppercase tracking-widest"
                       >
                         {tag}
                       </span>
@@ -129,7 +124,7 @@ export function Projects() {
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-white hover:scale-125 transition"
+                        className="text-black hover:scale-125 transition"
                         title="View Source"
                       >
                         <Code className="w-5 h-5" />
@@ -140,7 +135,7 @@ export function Projects() {
                         href={project.npm}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-red-500 hover:scale-125 transition"
+                        className="text-red-600 hover:scale-125 transition"
                         title="View on npm"
                       >
                         <SiNpm className="w-5 h-5" />
@@ -151,7 +146,7 @@ export function Projects() {
                         href={project.live}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-white hover:scale-125 transition"
+                        className="text-black hover:scale-125 transition"
                         title="View Live"
                       >
                         <ExternalLink className="w-5 h-5" />

@@ -2,21 +2,37 @@
 import React from "react";
 import { GridLines, PlusIcon } from "@/components/ui/GridLines";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Mail } from "lucide-react";
+import { SiGithub, SiNpm } from "react-icons/si";
+import { FaLinkedin } from "react-icons/fa";
 import { ExactLineArt } from "@/components/ui/ExactLineArt";
+import { SmoothCursor } from "@/components/ui/SmoothCursor";
 
 export function Hero() {
-  const { scrollY } = useScroll();
+  const { scrollY, scrollYProgress } = useScroll();
   const opacity = useTransform(scrollY, [0, 400], [1, 0]);
   const scale = useTransform(scrollY, [0, 400], [1, 0.9]);
 
+  // Parallax transforms
+  const nameY = useTransform(scrollYProgress, [0, 0.5], [0, -100]);
+  const imageY = useTransform(scrollYProgress, [0, 0.5], [0, 50]);
+  const subtextY = useTransform(scrollYProgress, [0, 0.5], [0, -50]);
+
   return (
-    <div className="relative min-h-screen w-full flex flex-col overflow-hidden border-b border-white/10 p-6 md:p-12">
-      {/* BACKGROUND SPLIT */}
-      <div className="absolute inset-0 flex pointer-events-none z-0">
-        <div className="flex-1 bg-black" />
-        <div className="flex-1 bg-white" />
-      </div>
+    <div
+      id="hero"
+      className="relative min-h-screen w-full flex flex-col overflow-hidden  p-6 md:p-12 bg-white"
+    >
+      <SmoothCursor />
+      {/* BACKGROUND SPLIT - Robust 50% width div for JS tracking */}
+      <motion.div
+        id="hero-split-center"
+        style={{
+          opacity: useTransform(scrollY, [0, 600], [1, 0]),
+          x: useTransform(scrollY, [0, 600], [0, -50]),
+        }}
+        className="absolute inset-y-0 left-0 w-1/2 bg-black pointer-events-none z-0"
+      />
 
       {/* Background Technicals */}
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -29,34 +45,72 @@ export function Hero() {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[140%] h-[40%] bg-gradient-radial from-white/[0.05] via-transparent to-transparent blur-[100px]" />
       </div>
 
+      {/* TOP RIGHT: SOCIALS */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.8 }}
+        className="absolute top-12 right-12 z-50 flex items-center gap-2"
+      >
+        <a
+          href="mailto:elnatansamuel25@gmail.com"
+          className="text-black hover:scale-110 transition-transform p-2"
+          aria-label="Email"
+        >
+          <Mail className="w-5 h-5" />
+        </a>
+        <a
+          href="https://github.com/ElnatanSamuel"
+          className="text-black hover:scale-110 transition-transform p-2"
+          aria-label="GitHub"
+        >
+          <SiGithub className="w-5 h-5" />
+        </a>
+        <a
+          href="https://www.linkedin.com/in/elnatansamuel999/"
+          className="text-black hover:scale-110 transition-transform p-2"
+          aria-label="LinkedIn"
+        >
+          <FaLinkedin className="w-5 h-5" />
+        </a>
+        <a
+          href="https://www.npmjs.com/~elnatansamuel"
+          className="text-black hover:scale-110 transition-transform p-2"
+          aria-label="NPM"
+        >
+          <SiNpm className="w-5 h-5" />
+        </a>
+      </motion.div>
+
       {/* TOP LEFT: NAME */}
       <motion.div
         initial={{ opacity: 0, x: -40 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8, delay: 0.5 }}
+        style={{ y: nameY }}
         className="relative z-20 self-start mt-20"
       >
-        <h1 className="text-5xl md:text-7xl font-black  uppercase leading-[1]">
+        <h1 className="text-5xl md:text-7xl font-black  uppercase leading-[1] text-white mix-blend-difference">
           Elnatan <br /> Samuel
         </h1>
-        <span className="text-[10px] font-mono text-white uppercase tracking-[0.5em] mt-6 block">
+        <span className="text-[10px] font-mono text-white uppercase tracking-[0.5em] mt-6 block mix-blend-difference">
           Fullstack mobile and web developer
         </span>
       </motion.div>
 
       {/* CENTER: BIG IMAGE */}
-      <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+      <div className="absolute inset-0 flex items-center justify-center z-50 pointer-events-none">
         <motion.div
-          style={{ opacity, scale }}
+          style={{ opacity, scale, y: imageY }}
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
-          className="relative w-full max-w-[80vh] aspect-[3/4] pointer-events-auto"
+          className="relative w-full max-w-[90vh] aspect-[3/4] pointer-events-auto"
         >
           <ExactLineArt
             src="/el.png"
             threshold={80}
-            className="w-full h-full"
+            className="w-full h-full z-50"
           />
         </motion.div>
       </div>
@@ -66,11 +120,12 @@ export function Hero() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 1 }}
+        style={{ y: subtextY }}
         className="relative z-20 self-end mt-auto mb-12 flex flex-col items-end text-right"
       >
-        <p className="text-[10px] md:text-xs font-mono text-black uppercase tracking-[0.4em] mb-12 max-w-sm leading-relaxed">
-          Focused on Native Performance & High Capacity Infrastructure. Building
-          the next generation of mobile experiences.
+        <p className="text-[10px] md:text-xs  font-mono text-black uppercase tracking-[0.4em] mb-12 max-w-sm leading-relaxed mix-blend-difference ">
+          I build modern apps, weird ideas, and occasionally turn them into real
+          products.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center gap-4">
