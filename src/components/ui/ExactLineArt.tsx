@@ -28,7 +28,7 @@ export const ExactLineArt: React.FC<Props> = ({
   const pointsRef = useRef<Point[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const mouseRef = useRef({ x: -1000, y: -1000 });
-  const animFrameRef = useRef<number>();
+  const animFrameRef = useRef<number | null>(null);
   const dimensionsRef = useRef({ w: 0, h: 0 });
 
   // Build point cloud once at a fixed reference resolution
