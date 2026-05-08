@@ -167,25 +167,25 @@ export const ExactLineArt: React.FC<Props> = ({
         // Organic Wobble (Per-point phase based on index)
         const phase = i * 0.005;
         const baseWobbleSpeed = timeRef.current;
-        const wobbleX = Math.sin(baseWobbleSpeed + phase) * 1.5; 
+        const wobbleX = Math.sin(baseWobbleSpeed + phase) * 1.5;
         const wobbleY = Math.cos(baseWobbleSpeed * 0.8 + phase) * 1.5;
 
         // Interaction
         const dx = mouse.x - p.px;
         const dy = mouse.y - p.py;
         const distSq = dx * dx + dy * dy;
-        const radius = 160; 
-        
+        const radius = 160;
+
         let interactionWobble = 1;
         if (distSq < radius * radius) {
           const dist = Math.sqrt(distSq);
           const force = (radius - dist) / radius;
           const angle = Math.atan2(dy, dx);
-          
+
           // Repulsion force
           p.vx -= Math.cos(angle + 0.1) * force * 1.2;
           p.vy -= Math.sin(angle + 0.1) * force * 1.2;
-          
+
           // Amplify wobble significantly near mouse
           interactionWobble = 1 + force * 5;
         }
