@@ -6,14 +6,38 @@ export const Preloader = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Sequence:
-    // 0ms: Black screen
-    // 800ms: White panel starts sliding in
-    // 1600ms: Exit sequence starts
-    const timer = setTimeout(() => {
-      setLoading(false);
+    let assetsReady = false;
+    let minTimePassed = false;
+
+    const checkReady = () => {
+      if (assetsReady && minTimePassed) {
+        setLoading(false);
+      }
+    };
+
+    const handleReady = () => {
+      assetsReady = true;
+      checkReady();
+    };
+
+    window.addEventListener("vector-field-ready", handleReady);
+
+    // Minimum display time for animation (2 seconds)
+    const minTimer = setTimeout(() => {
+      minTimePassed = true;
+      checkReady();
     }, 2000);
-    return () => clearTimeout(timer);
+
+    // Safety timeout (6 seconds)
+    const safetyTimer = setTimeout(() => {
+      setLoading(false);
+    }, 6000);
+
+    return () => {
+      window.removeEventListener("vector-field-ready", handleReady);
+      clearTimeout(minTimer);
+      clearTimeout(safetyTimer);
+    };
   }, []);
 
   return (

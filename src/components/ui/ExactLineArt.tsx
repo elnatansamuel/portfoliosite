@@ -109,6 +109,8 @@ export const ExactLineArt: React.FC<Props> = ({
       }
 
       pointsRef.current = basePoints;
+      // Dispatch event for preloader
+      window.dispatchEvent(new CustomEvent("vector-field-ready"));
       setIsLoaded(true);
     };
   }, [src, threshold]);
