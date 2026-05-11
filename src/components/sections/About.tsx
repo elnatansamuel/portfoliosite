@@ -17,7 +17,7 @@ export function About() {
     <section
       id="about"
       ref={containerRef}
-      className="relative  w-full flex flex-col overflow-hidden bg-black py-40 px-6"
+      className="relative w-full flex flex-col overflow-hidden bg-black py-10 md:py-40 px-6"
     >
       <div className="max-w-7xl mx-auto px-10 relative z-10 w-full flex-1 flex flex-col justify-center">
         <div className="flex flex-col gap-12">
@@ -31,7 +31,7 @@ export function About() {
               </h2>
               <div className="w-20 h-1 bg-white mb-6" />
             </div>
-            <div className="md:w-1/2 mt-12 md:mt-24">
+            <div className="md:w-1/2 mt-2 md:mt-24">
               <p className="text-xl md:text-2xl font-medium leading-tight uppercase tracking-tight mb-8 text-white">
                 I LIKE BUILDING THINGS PEOPLE CAN ACTUALLY USE WITHOUT GETTING
                 ANNOYED FIVE SECONDS IN.

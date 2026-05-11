@@ -6,6 +6,7 @@ import { ArrowRight, Mail } from "lucide-react";
 import { SiGithub, SiNpm } from "react-icons/si";
 import { FaLinkedin } from "react-icons/fa";
 import { ExactLineArt } from "@/components/ui/ExactLineArt";
+import { MobileLineArt } from "@/components/ui/MobileLineArt";
 import { SmoothCursor } from "@/components/ui/SmoothCursor";
 
 export function Hero() {
@@ -21,17 +22,17 @@ export function Hero() {
   return (
     <div
       id="hero"
-      className="relative min-h-screen w-full flex flex-col overflow-hidden  p-6 md:p-12 bg-white"
+      className="relative min-h-screen w-full flex flex-col overflow-hidden p-6 md:p-12 bg-black md:bg-white"
     >
       <SmoothCursor />
-      {/* BACKGROUND SPLIT - Robust 50% width div for JS tracking */}
+      {/* BACKGROUND SPLIT - Hidden on mobile */}
       <motion.div
         id="hero-split-center"
         style={{
           opacity: useTransform(scrollY, [0, 600], [1, 0]),
           x: useTransform(scrollY, [0, 600], [0, -50]),
         }}
-        className="absolute inset-y-0 left-0 w-1/2 bg-black pointer-events-none z-0"
+        className="absolute inset-y-0 left-0 w-1/2 bg-black pointer-events-none z-0 hidden md:block"
       />
 
       {/* Background Technicals */}
@@ -50,35 +51,35 @@ export function Hero() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.8 }}
-        className="absolute top-12 right-12 z-50 flex items-center gap-2"
+        className="absolute top-8 right-6 md:top-12 md:right-12 z-50 flex items-center gap-2 md:gap-4"
       >
         <a
           href="mailto:elnatansamuel25@gmail.com"
-          className="text-black hover:scale-110 transition-transform p-2"
+          className="text-white md:text-black hover:scale-110 transition-transform p-2"
           aria-label="Email"
         >
-          <Mail className="w-5 h-5" />
+          <Mail className="w-4 h-4 md:w-5 md:h-5" />
         </a>
         <a
           href="https://github.com/ElnatanSamuel"
-          className="text-black hover:scale-110 transition-transform p-2"
+          className="text-white md:text-black hover:scale-110 transition-transform p-2"
           aria-label="GitHub"
         >
-          <SiGithub className="w-5 h-5" />
+          <SiGithub className="w-4 h-4 md:w-5 md:h-5" />
         </a>
         <a
           href="https://www.linkedin.com/in/elnatansamuel999/"
-          className="text-black hover:scale-110 transition-transform p-2"
+          className="text-white md:text-black hover:scale-110 transition-transform p-2"
           aria-label="LinkedIn"
         >
-          <FaLinkedin className="w-5 h-5" />
+          <FaLinkedin className="w-4 h-4 md:w-5 md:h-5" />
         </a>
         <a
           href="https://www.npmjs.com/~elnatan"
-          className="text-black hover:scale-110 transition-transform p-2"
+          className="text-white md:text-black hover:scale-110 transition-transform p-2"
           aria-label="NPM"
         >
-          <SiNpm className="w-5 h-5" />
+          <SiNpm className="w-4 h-4 md:w-5 md:h-5" />
         </a>
       </motion.div>
 
@@ -88,30 +89,55 @@ export function Hero() {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8, delay: 0.5 }}
         style={{ y: nameY }}
-        className="relative z-20 self-start mt-20"
+        className="relative z-20 self-start mt-16 md:mt-20"
       >
-        <h1 className="text-5xl md:text-7xl font-black  uppercase leading-[1] text-white mix-blend-difference">
+        <h1 className="text-4xl md:text-7xl font-black uppercase leading-[1] text-white md:mix-blend-difference">
           Elnatan <br /> Samuel
         </h1>
-        <span className="text-[10px] font-mono text-white uppercase tracking-[0.5em] mt-6 block mix-blend-difference">
+        <span className="text-[9px] md:text-[10px] font-mono text-white uppercase tracking-[0.4em] md:tracking-[0.5em] mt-4 md:mt-6 block md:mix-blend-difference">
           Fullstack mobile and web developer
         </span>
       </motion.div>
 
       {/* CENTER: BIG IMAGE */}
-      <div className="absolute inset-0 flex items-center justify-center z-50 pointer-events-none">
+      <div className="absolute inset-0 flex items-center justify-center z-50 pointer-events-none px-4">
         <motion.div
           style={{ opacity, scale, y: imageY }}
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
-          className="relative w-full max-w-[90vh] aspect-[3/4] pointer-events-auto"
+          className="relative w-full max-w-[85vw] md:max-w-[90vh] aspect-[3/4] pointer-events-auto mt-[-10vh] md:mt-0"
         >
-          <ExactLineArt
-            src="/el.png"
-            threshold={80}
-            className="w-full h-full z-50"
-          />
+          <div
+            className="hidden md:block w-full h-full"
+            style={{
+              maskImage:
+                "linear-gradient(to bottom, black 80%, transparent 100%)",
+              WebkitMaskImage:
+                "linear-gradient(to bottom, black 80%, transparent 100%)",
+            }}
+          >
+            <ExactLineArt
+              src="/el.png"
+              threshold={80}
+              className="w-full h-full z-50"
+            />
+          </div>
+          <div
+            className="block opacity-70 md:hidden w-full h-full"
+            style={{
+              maskImage:
+                "linear-gradient(to bottom, black 80%, transparent 100%)",
+              WebkitMaskImage:
+                "linear-gradient(to bottom, black 80%, transparent 100%)",
+            }}
+          >
+            <MobileLineArt
+              src="/el.png"
+              threshold={120}
+              className="w-full h-full z-50"
+            />
+          </div>
         </motion.div>
       </div>
 
@@ -121,24 +147,24 @@ export function Hero() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 1 }}
         style={{ y: subtextY }}
-        className="relative z-20 self-end mt-auto mb-12 flex flex-col items-end text-right"
+        className="relative z-50 self-end mt-auto mb-6 md:mb-12 flex flex-col items-end text-right px-4"
       >
-        <p className="text-[10px] md:text-xs  font-mono text-black uppercase tracking-[0.4em] mb-12 max-w-sm leading-relaxed mix-blend-difference ">
+        <p className="text-[10px] md:text-xs font-mono text-white md:text-black uppercase tracking-[0.3em] md:tracking-[0.4em] mb-8 md:mb-12 max-w-[250px] md:max-w-sm leading-relaxed md:mix-blend-difference">
           I build modern apps, weird ideas, and occasionally turn them into real
           products.
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
           <button
             onClick={() =>
               document
                 .getElementById("projects")
                 ?.scrollIntoView({ behavior: "smooth" })
             }
-            className="group relative px-10 py-5 bg-black text-white font-bold uppercase tracking-widest text-[10px] hover:bg-neutral-800 transition-all overflow-hidden w-full sm:w-auto"
+            className="group relative px-10 py-5 bg-white md:bg-black text-black md:text-white font-bold uppercase tracking-widest text-[10px] transition-all overflow-hidden w-full sm:w-auto"
           >
-            <div className="absolute inset-0 bg-neutral-800 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-            <span className="relative z-10 flex items-center gap-3">
+            <div className="absolute inset-0 bg-neutral-200 md:bg-neutral-800 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+            <span className="relative z-10 flex items-center justify-center gap-3">
               Projects{" "}
               <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
             </span>
@@ -149,7 +175,7 @@ export function Hero() {
                 .getElementById("skills")
                 ?.scrollIntoView({ behavior: "smooth" })
             }
-            className="group px-8 py-5 border border-black hover:border-black/30 text-[10px] text-black font-mono uppercase tracking-[0.4em] transition-all w-full sm:w-auto"
+            className="group px-8 py-5 border border-white md:border-black text-[10px] text-white md:text-black font-mono uppercase tracking-[0.4em] transition-all w-full sm:w-auto"
           >
             Skills
           </button>

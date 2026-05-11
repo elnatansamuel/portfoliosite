@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export const Preloader = () => {
   const [loading, setLoading] = useState(true);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     let assetsReady = false;
@@ -16,11 +17,22 @@ export const Preloader = () => {
     };
 
     const handleReady = () => {
-      assetsReady = true;
-      checkReady();
+      // We rely on handleProgress reaching 100% now
+    };
+
+    const handleProgress = (e: any) => {
+      setProgress(e.detail);
+      if (e.detail >= 100) {
+        // Small delay so user sees 100% before exit
+        setTimeout(() => {
+          assetsReady = true;
+          checkReady();
+        }, 800);
+      }
     };
 
     window.addEventListener("vector-field-ready", handleReady);
+    window.addEventListener("vector-progress", handleProgress);
 
     // Minimum display time for animation (2 seconds)
     const minTimer = setTimeout(() => {
@@ -28,13 +40,14 @@ export const Preloader = () => {
       checkReady();
     }, 2000);
 
-    // Safety timeout (6 seconds)
+    // Safety timeout (10 seconds for heavy compilation)
     const safetyTimer = setTimeout(() => {
       setLoading(false);
-    }, 6000);
+    }, 10000);
 
     return () => {
       window.removeEventListener("vector-field-ready", handleReady);
+      window.removeEventListener("vector-progress", handleProgress);
       clearTimeout(minTimer);
       clearTimeout(safetyTimer);
     };
@@ -72,12 +85,28 @@ export const Preloader = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.2 }}
-              className="flex flex-col items-center"
+              className="flex flex-col items-center w-full max-w-xs"
             >
-              <span className="text-black font-black text-4xl uppercase tracking-tighter mb-4">
+              <span className="text-black font-black text-4xl uppercase tracking-tighter mb-8">
                 Elnatan Samuel
               </span>
-              <div className="w-12 h-1 bg-black" />
+
+              {/* Progress Bar Container */}
+              <div className="w-full h-[2px] bg-neutral-100 relative overflow-hidden">
+                <motion.div
+                  className="absolute inset-y-0 left-0 bg-black"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${progress}%` }}
+                  transition={{ ease: "easeOut", duration: 0.2 }}
+                />
+              </div>
+
+              <div className="flex justify-between w-full mt-2">
+                <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-widest"></span>
+                <span className="text-[10px] font-mono text-black font-bold">
+                  {Math.round(progress)}%
+                </span>
+              </div>
             </motion.div>
           </motion.div>
         </motion.div>

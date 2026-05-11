@@ -103,12 +103,12 @@ export default function Home() {
             y: useTransform(useScroll().scrollYProgress, [0.5, 0.7], [100, 0]),
             zIndex: 32,
           }}
-          className="py-10 px-6 relative bg-white border-t border-black/5"
+          className="py-10 md:py-40 px-4 md:px-6 relative bg-white border-t border-black/5"
         >
-          <div className="max-w-7xl mx-auto relative px-10 ">
-            <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-24 py-20 items-start">
-              {/* Sticky Header Column */}
-              <div className="sticky top-40 h-fit">
+          <div className="max-w-7xl mx-auto relative px-4 md:px-10 ">
+            <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-24 py-10 md:py-20 items-start">
+              {/* Sticky Header Column - Relative on mobile to prevent overlap */}
+              <div className="relative md:sticky md:top-40 h-fit z-10 bg-white md:bg-transparent py-4 md:py-0">
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -126,7 +126,7 @@ export default function Home() {
               </div>
 
               {/* Parallax Content Column */}
-              <div className="space-y-60 py-20">
+              <div className="space-y-10 md:space-y-60 py-10 md:py-20">
                 {[
                   {
                     role: "Mobile App Developer",

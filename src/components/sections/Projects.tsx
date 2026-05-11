@@ -57,20 +57,20 @@ const projects = [
 
 export function Projects() {
   return (
-    <section id="projects" className="py-40 px-6 relative z-30 bg-white">
-      <div className="max-w-7xl mx-auto relative  px-10">
+    <section id="projects" className="py-24 md:py-40 px-4 md:px-6 relative z-30 bg-white">
+      <div className="max-w-7xl mx-auto relative px-4 md:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="flex flex-col md:flex-row justify-between items-end mb-24 gap-12"
+          className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-24 gap-8 md:gap-12"
         >
           <div className="md:w-1/2">
-            <span className="text-xs font-mono text-neutral-400 uppercase tracking-[0.4em] block mb-3">
+            <span className="text-[10px] md:text-xs font-mono text-neutral-400 uppercase tracking-[0.4em] block mb-3">
               Selected Works
             </span>
-            <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase mb-4 text-black">
+            <h2 className="text-3xl md:text-5xl font-black tracking-tighter uppercase mb-4 text-black leading-none">
               Featured Projects
             </h2>
             <div className="w-20 h-1 bg-black mb-6" />
@@ -107,8 +107,8 @@ export function Projects() {
                   {project.desc}
                 </p>
 
-                <div className="flex items-center justify-between mt-auto">
-                  <div className="flex gap-2">
+                <div className="flex flex-col gap-6 mt-auto">
+                  <div className="flex flex-wrap gap-2">
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
