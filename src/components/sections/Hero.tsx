@@ -106,7 +106,7 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
-          className="relative w-full max-w-[85vw] md:max-w-[90vh] aspect-[3/4] pointer-events-auto mt-[-10vh] md:mt-0"
+          className="relative w-full max-w-[100vw] md:max-w-[90vh] aspect-[3/4] pointer-events-auto mt-[-10vh] md:mt-0"
         >
           <div
             className="hidden md:block w-full h-full"
@@ -134,7 +134,7 @@ export function Hero() {
           >
             <MobileLineArt
               src="/el.png"
-              threshold={120}
+              threshold={100}
               className="w-full h-full z-50"
             />
           </div>
