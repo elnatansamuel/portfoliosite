@@ -108,36 +108,40 @@ export function Hero() {
           transition={{ duration: 1.2, ease: "easeOut" }}
           className="relative w-full max-w-[100vw] md:max-w-[90vh] aspect-[3/4] pointer-events-auto mt-[-10vh] md:mt-0"
         >
-          <div
-            className="hidden md:block w-full h-full"
-            style={{
-              maskImage:
-                "linear-gradient(to bottom, black 80%, transparent 100%)",
-              WebkitMaskImage:
-                "linear-gradient(to bottom, black 80%, transparent 100%)",
-            }}
-          >
-            <ExactLineArt
-              src="/el.png"
-              threshold={80}
-              className="w-full h-full z-50"
-            />
-          </div>
-          <div
-            className="block opacity-70 md:hidden w-full h-full"
-            style={{
-              maskImage:
-                "linear-gradient(to bottom, black 80%, transparent 100%)",
-              WebkitMaskImage:
-                "linear-gradient(to bottom, black 80%, transparent 100%)",
-            }}
-          >
-            <MobileLineArt
-              src="/el.png"
-              threshold={100}
-              className="w-full h-full z-50"
-            />
-          </div>
+          {/* Conditional Rendering to avoid mounting both on mobile */}
+          {typeof window !== "undefined" && window.innerWidth >= 768 ? (
+            <div
+              className="w-full h-full"
+              style={{
+                maskImage:
+                  "linear-gradient(to bottom, black 80%, transparent 100%)",
+                WebkitMaskImage:
+                  "linear-gradient(to bottom, black 80%, transparent 100%)",
+              }}
+            >
+              <ExactLineArt
+                src="/el.png"
+                threshold={80}
+                className="w-full h-full z-50"
+              />
+            </div>
+          ) : (
+            <div
+              className="opacity-70 w-full h-full"
+              style={{
+                maskImage:
+                  "linear-gradient(to bottom, black 80%, transparent 100%)",
+                WebkitMaskImage:
+                  "linear-gradient(to bottom, black 80%, transparent 100%)",
+              }}
+            >
+              <MobileLineArt
+                src="/el.png"
+                threshold={100}
+                className="w-full h-full z-50"
+              />
+            </div>
+          )}
         </motion.div>
       </div>
 
